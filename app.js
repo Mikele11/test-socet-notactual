@@ -104,7 +104,7 @@ MongoClient.connect(MONGO_URL, function(err, db){
 		socket.on('chat message', (data) => {
 			messages[data.room_id] = messages[data.room_id] || [];
 			var log = {
-				user_avatar:data.user_avatar,
+				user_avatar: data.user_avatar,
 				user_name: data.user_name,
 				message: data.message
 			};
