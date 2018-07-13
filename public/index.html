@@ -25,67 +25,67 @@
 				<input type="hidden" id="picrscr" value="">
 				<div id="response"></div>
 				<script>
-function getUserData() {
-									FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id,picture.width(100).height(100)'},function(response) {
-										document.getElementById('response').innerHTML = 'Hello ' + response.name;
-										$('#input-user-name').val(response.name);
-										document.getElementById('pict').innerHTML = "<img src='"+response.picture.data.url+"'>";
-										$('#picrscr').val(response.picture.data.url);
-									});
-								}
+					function getUserData() {
+					FB.api('/me', 'GET', {fields: 'first_name,last_name,name,id,picture.width(100).height(100)'},function(response) {
+						document.getElementById('response').innerHTML = 'Hello ' + response.name;
+						$('#input-user-name').val(response.name);
+						document.getElementById('pict').innerHTML = "<img src='"+response.picture.data.url+"'>";
+						$('#picrscr').val(response.picture.data.url);
+					});
+				}
 
-								window.fbAsyncInit = function() {
-									//SDK loaded, initialize it
-									FB.init({
-										appId      : '184316765568102',
-										xfbml      : true,
-										version    : 'v2.2'
-									});
+				window.fbAsyncInit = function() {
+					//SDK loaded, initialize it
+					FB.init({
+						appId      : '184316765568102',
+						xfbml      : true,
+						version    : 'v2.2'
+					});
 
-									//check user session and refresh it
-									FB.getLoginStatus(function(response) {
-										if (response.status === 'connected') {
-											//user is authorized
-											document.getElementById('response').innerHTML = 'Hello '+ 'in faceboock';
-											getUserData();
-										} else {
-										
-										}
-									});
-								};
+					//check user session and refresh it
+					FB.getLoginStatus(function(response) {
+						if (response.status === 'connected') {
+							//user is authorized
+							document.getElementById('response').innerHTML = 'Hello '+ 'in faceboock';
+							getUserData();
+						} else {
 
-								//load the JavaScript SDK
-								(function(d, s, id){
-									var js, fjs = d.getElementsByTagName(s)[0];
-									if (d.getElementById(id)) {return;}
-									js = d.createElement(s); js.id = id;
-									js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
-									fjs.parentNode.insertBefore(js, fjs);
-								}(document, 'script', 'facebook-jssdk'));
+						}
+					});
+				};
 
-								//add event listener to login button
-								document.getElementById('loginBtn').addEventListener('click', function() {
-									//do the login
-									FB.login(function(response) {
+				//load the JavaScript SDK
+				(function(d, s, id){
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) {return;}
+					js = d.createElement(s); js.id = id;
+					js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
 
-										if (response.authResponse) {
-											//user just authorized your app
-											document.getElementById('response').innerHTML = 'Hello '+ 'in faceboock';
-											getUserData();
-											$('#input-user-name').attr("disabled", true);
-										}
-									}, {scope: 'email,public_profile', return_scopes: true});
-								}, false);
-								document.getElementById('logoutBtn').addEventListener('click', function() {
-									//do the login
-									FB.logout(function(response) {
-										document.getElementById('response').innerHTML =  'bye bye';
-										$('#input-user-name').val('');
-										$('#input-user-name').attr("disabled", false);
-										$('#pict').empty();
-										$('#picrscr').val('');
-									});
-								});
+				//add event listener to login button
+				document.getElementById('loginBtn').addEventListener('click', function() {
+					//do the login
+					FB.login(function(response) {
+
+						if (response.authResponse) {
+							//user just authorized your app
+							document.getElementById('response').innerHTML = 'Hello '+ 'in faceboock';
+							getUserData();
+							$('#input-user-name').attr("disabled", true);
+						}
+					}, {scope: 'email,public_profile', return_scopes: true});
+				}, false);
+				document.getElementById('logoutBtn').addEventListener('click', function() {
+					//do the login
+					FB.logout(function(response) {
+						document.getElementById('response').innerHTML =  'bye bye';
+						$('#input-user-name').val('');
+						$('#input-user-name').attr("disabled", false);
+						$('#pict').empty();
+						$('#picrscr').val('');
+					});
+				});
 				</script>
 				
 				
