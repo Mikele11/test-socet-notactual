@@ -1,0 +1,48 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+.container{
+	width: 100%;
+}
+.leftside{
+	overflow: auto;
+	min-height: 100%;
+	background: #b2ccd4 !important;
+	height: 100vh;
+}
+.centerside{
+	height: 100vh;
+	overflow-x: hidden;
+	width: 50% !important;
+	padding-left: 5%;
+	background: #ebebeb;
+}
+.rightside{
+	height: 100vh;
+	overflow-x: hidden;
+	width: 25% !important;
+	padding-left: 5%;
+	background: #cacaf1;
+}
+.form-control{
+	width: 90% !important;
+}
+.idhiden{
+	display:none;
+}
+i{
+	color: #fb5858;
+}
+p{
+	width: 80%;
+    border: 1px solid;
+    border-radius: 14px;
+    padding: 10px;
+    background: #d3d3eb;
+}
+/*
+#title2>div:nth-of-type(3){
+	margin-left: 4%;
+}
+*/
