@@ -51,8 +51,15 @@ $('#create-room').on('submit', () => {
 });
 
 $('#post-message').on('submit', () => {
+	var avatar;
+	if ($('#picrscr').val()==''){
+		avatar='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXPg-87YPJhgdeqQoAlUdgF60k6yi61LlpDtSXSqjWMVa9xbWVXQ';
+	}else{
+		avatar=$('#picrscr').val();
+	}
 	socket.emit('chat message', {
 		room_id: current_room,
+		user_avatar: avatar,
 		user_name: user_name,
 		message: $('#input-message').val()
 	});
@@ -135,7 +142,7 @@ $(document).on('click', '.fa-trash', (ev) => {
 			}
 			$('#message-list').empty();
 			mess.forEach((v) => {
-				$('#message-list').append('<p>' + v.log.user_name + '：' + v.log.message + '&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"><span class="idhiden">'+v._id+'</span></i>'+'</p>');
+				$('#message-list').append('<p>' +'<img class="useravatar" src="'+ v.user_avatar+'">'+ v.log.user_name + '：' + v.log.message + '&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"><span class="idhiden">'+v._id+'</span></i>'+'</p>');
 			});
 		}
 	});							
@@ -166,12 +173,12 @@ socket.on('chat message', (data_doc) => {
 		}	
 	});	
 	if (current_room == data_doc.room_id) {
-		$('#message-list').append('<p>' + data_doc.log.user_name + '：' + data_doc.log.message + '&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"><span class="idhiden">'+data_doc._id+'</span></i>'+'</p>');
+		$('#message-list').append('<p>' +'<img class="useravatar" src="'+ data_doc.user_avatar+'">'+ data_doc.log.user_name + '：' + data_doc.log.message + '&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"><span class="idhiden">'+data_doc._id+'</span></i>'+'</p>');
 	}
 });
 socket.on('chat message init', (messages) => {
 	$('#message-list').empty();
 	messages.forEach((v) => {
-		$('#message-list').append('<p>' + v.log.user_name + '：' + v.log.message + '&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"><span class="idhiden">'+v._id+'</span></i>'+'</p>');
+		$('#message-list').append('<p>' +'<img class="useravatar" src="'+ v.user_avatar+'">'+ v.log.user_name + '：' + v.log.message + '&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"><span class="idhiden">'+v._id+'</span></i>'+'</p>');
 	});
 });
