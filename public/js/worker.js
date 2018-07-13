@@ -1,4 +1,4 @@
-var url = "localhost:3000";//https://socetchat.herokuapp.com
+var url = "https://socetchat.herokuapp.com";//https://socetchat.herokuapp.com
 var socket = io.connect(url);
 var user_name = "";
 var current_room = "";
