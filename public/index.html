@@ -31,6 +31,7 @@
 						$('#input-user-name').val(response.name);
 						document.getElementById('pict').innerHTML = "<img src='"+response.picture.data.url+"'>";
 						$('#picrscr').val(response.picture.data.url);
+						$('#user-list').append('<p>' +'<img class="useravatar_small" src="'+ response.picture.data.url+'">'+ response.name +'</p>');
 					});
 				}
 
