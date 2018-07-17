@@ -68,6 +68,32 @@ $('#post-message').on('submit', () => {
 })
 
 //зміна кімнати
+$('#post-search').on('submit', () => {
+	var dat={"word":$('#input-search').val()}
+	console.log('dat',dat);
+
+	$.ajax({
+		url: "/search",
+		type: "POST",
+		contentType: 'application/json',
+		data: JSON.stringify(dat),
+		cache: false,
+		success: function(response){
+			console.log('search',response);
+			$('#search-list').empty();
+			response.forEach((v) => {
+				//$('#search-list').append('<a href="'+v+ '">' + '</a>');
+				$('#search-list').append('<p>' +'<a href="'+ v+'">'+v+'</p>');
+			})
+		},
+		error: function( jqXhr, textStatus, errorThrown ){
+			console.log(  jqXhr )
+			console.log(  textStatus )
+			console.log(  errorThrown )
+		}
+
+	});
+})
 
 $(document).on('click', '.room-menu', (ev) => {
 	current_room = $(ev.currentTarget).attr('data-room-id');
