@@ -122,6 +122,18 @@
             <div class="col-md-4 centerside">
                 <h3>Chat: This room is: <span id="current_room_id"></span></h3>
                 <div class="row">
+			
+		   <form action="" method="post" id="post-search" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="">
+                                <input type="text" name="search" class="form-control" id="input-search" placeholder="search">
+                            </div>
+                            <label for="col-sm-2 input_search">
+                                <input type="submit" class="btn btn-default">
+                            </label>
+                        </div>
+                    </form>
+			<div id="search-list"></div>
                     <form action="" method="post" id="post-message" class="form-horizontal">
                         <div class="form-group">
                             <div class="">
