@@ -170,5 +170,48 @@ MongoClient.connect(MONGO_URL2, function(err, db){
 	
 
 });
+
+
+app.post('/search', function (req, res) {
+	console.log('search>',req.body.word)
+	console.log(req.body.word)
+	const GoogleScraper = require('google-scraper');
+	
+	if (req.body.word!== undefined){
+		console.log('search>????',req.body.word)
+			const options = {
+			  keyword: req.body.word,//'mikele'
+			  language: "ru",
+			  tld:"ru",
+			  results: 20
+			};
+			 
+			const scrape = new GoogleScraper(options); 
+			scrape.getGoogleLinks.then(function(doc) {
+			  res.send(doc);
+			  //res.json(doc);
+			  console.log('++++');
+			}).catch(function(e) {
+			  console.log(e);
+			})
+	}
+/*	
+	const options = {
+	  keyword: req.body.word,
+	  language: "ru",
+	  tld:"ru",
+	  results: 100
+	};
+	 
+	const scrape = new GoogleScraper(options);
+	 
+	scrape.getGoogleLinks.then(function(value) {
+	  res.send(value);
+	  console.log('++++');
+	}).catch(function(e) {
+	  console.log(e);
+	})
+*/	
+});
 console.log('server on port 3000');
 server.listen(port);  
