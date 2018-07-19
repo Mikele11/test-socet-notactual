@@ -207,9 +207,11 @@ MongoClient.connect(MONGO_URL, function(err, db){
 		app.get('/userlistsocetsearch', function (req, res) {
 			var fname1 = req.query.fname;
 			db.collection("userlistsocet").find({user_name: fname1}).toArray(function(error, doc) {
-				if (err) throw error;
+			    if (err) throw error;
+					console.log('doc',doc);
+			    res.send(doc);
 			});
-		});
+	    	});
 		
 		app.post('/userlistsocet', function (req, res) {
 
