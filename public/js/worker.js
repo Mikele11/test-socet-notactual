@@ -286,8 +286,10 @@ socket.on('change', function (usersOnline){
 			console.log('on')
 			var x = document.getElementsByClassName("userp").length;
 			console.log( 'class',x);
-			$('#user-list>p').each(function( index ) {	
+			$('#user-list>p').each(function( index ) {
+				console.log('in each change');
 			  if ($( this ).text() == usersOnline[index]){
+				  console.log('in each change thr same');
 				  console.log('write color',usersOnline[index]);
 				$( this ).css("background","greenyellow"); 
 			  } 
