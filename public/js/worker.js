@@ -288,6 +288,8 @@ socket.on('change', function (usersOnline){
 			console.log( 'class',x);
 			$('#user-list>p').each(function( index ) {
 				console.log('in each change');
+				console.log('in each change this',$( this ).text());
+				console.log('in each change index',usersOnline[index]);
 			  if ($( this ).text() == usersOnline[index]){
 				  console.log('in each change thr same');
 				  console.log('write color',usersOnline[index]);
