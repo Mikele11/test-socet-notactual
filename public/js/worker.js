@@ -19,7 +19,7 @@ $.ajax({
 	type: "GET",
 	data: '',
 	cache: false,
-	success: function(response) {
+	success: function(response){
 		for (var i = 0; i < response.length; i++) {
 				rooms[i] = response[i].room_id;
 		}
@@ -57,9 +57,10 @@ $('#post-message').on('submit', () => {
 	}else{
 		avatar=$('#picrscr').val();
 	}
+
 	socket.emit('chat message', {
 		room_id: current_room,
-		user_avatar: avatar,
+		user_avatar: avatar,		
 		user_name: user_name,
 		message: $('#input-message').val()
 	});
@@ -67,8 +68,11 @@ $('#post-message').on('submit', () => {
 	return false;
 })
 
-//зміна кімнати
-$('#post-search').on('submit', () => {
+
+
+
+$('#post-search').on('submit', (e) => {
+	e.preventDefault();
 	var dat={"word":$('#input-search').val()}
 	console.log('dat',dat);
 
@@ -85,6 +89,7 @@ $('#post-search').on('submit', () => {
 				//$('#search-list').append('<a href="'+v+ '">' + '</a>');
 				$('#search-list').append('<p>' +'<a href="'+ v+'">'+v+'</p>');
 			})
+			$('#search-list').append('<p class="сollapse">'+'<span class="caret-up"></span>' +'<span>'+'Згорнути'+'</span>');
 		},
 		error: function( jqXhr, textStatus, errorThrown ){
 			console.log(  jqXhr )
@@ -94,6 +99,14 @@ $('#post-search').on('submit', () => {
 
 	});
 })
+
+$(document).on('click', '.сollapse', (ev) => {
+	$('#search-list').empty();
+});
+
+
+
+//зміна кімнати
 
 $(document).on('click', '.room-menu', (ev) => {
 	current_room = $(ev.currentTarget).attr('data-room-id');
@@ -115,8 +128,7 @@ $(document).on('click', '.room-menu', (ev) => {
 			$('#room-list').empty();
 			rooms.forEach((v) => {
 				$('#room-list').append('<a href="#" class="list-group-item room-menu" data-room-id="' + v + '">' + v + '</a>');
-			}) 
-			 
+			}) 			 
 		}
 	});
 							
@@ -178,6 +190,7 @@ $(document).on('click', '.fa-trash', (ev) => {
 });
 
 //--------------------------видалення кінець
+
 socket.on('fetch rooms', (rooms) => {
 	$('#room-list').empty();
 	rooms.forEach((v) => {
@@ -205,6 +218,7 @@ socket.on('chat message', (data_doc) => {
 		//$('<p class="userp">' +'<img class="useravatar" src="'+ data_doc.log.user_avatar+'">'+ data_doc.log.user_name + '：' + data_doc.log.message + '&nbsp;&nbsp;&nbsp;<i class="fa fa-trash"><span class="idhiden">'+data_doc._id+'</span></i>'+'</p>').appendTo('#message-list');
 		
 	}
+
 });
 socket.on('chat message init', (messages) => {
 	$('#message-list').empty();
@@ -214,3 +228,85 @@ socket.on('chat message init', (messages) => {
 		
 	});
 });
+
+//----------------------------------------отрисовка
+		
+	socket.on('connect', function (){
+		setTimeout(function(){
+		console.log('sender',document.getElementById('response').innerText)
+		socket.emit('remember user', $('#response').text());
+		},5000);
+	});
+	
+    socket.on('change', function (user){
+		setTimeout(function(){
+			if (navigator.onLine == true){
+				console.log('on')
+				//$('#user-list').css("background","greenyellow");
+				var x = document.getElementsByClassName("userp").length;
+				console.log( 'class',x);
+
+				$('#user-list>p').each(function( index ) {
+				  console.log( 'each user',user );	
+				  console.log( index + ": " + $( this ).text() );
+				  if ($( this ).text() == user){
+					$( this ).css("background","greenyellow"); 
+				  } 
+				});			
+			} else {
+				console.log('off')
+				$('#user-list>p').each(function( index ) {
+				  console.log( 'each' );	
+				  console.log( index + ": " + $( this ).text() );
+				  if ($( this ).text() == user){
+					$( this ).css("background","#d3d3eb");  
+				  } 
+				});
+			}
+		},5000);
+    });
+    socket.on('oldcolors', function (user){
+		setTimeout(function(){
+			console.log('off')
+			$('#user-list>p').each(function( index ) {
+			  console.log( 'each' );	
+			  console.log( index + ": " + $( this ).text() );
+			  if ($( this ).text() == user){
+				$( this ).css("background","#d3d3eb");  
+			  } 
+			});
+		},5000);
+    });
+
+
+//-----------------------------------------------
+/*
+$(document).ready(function () {
+	setTimeout(function(){
+		if (navigator.onLine == true){
+			console.log('on')
+			//$('#user-list').css("background","greenyellow");
+			var x = document.getElementsByClassName("userp").length;
+			console.log( 'class',x);
+
+			$('#user-list>p').each(function( index ) {
+			  console.log( 'each' );	
+			  console.log( index + ": " + $( this ).text() );
+			  if ($( this ).text() == $('#response').text()){
+				$( this ).css("background","greenyellow"); 
+			  } 
+			});			
+		} else {
+			console.log('off')
+			$('#user-list>p').each(function( index ) {
+			  console.log( 'each' );	
+			  console.log( index + ": " + $( this ).text() );
+			  if ($( this ).text() == $('#response').text()){
+				$( this ).css("background","#d3d3eb");  
+			  } 
+			});
+		}
+	},5000);
+})
+
+*/
