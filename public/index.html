@@ -77,16 +77,14 @@
 								data: '',
 								cache: false,
 								success: function(response){
-								console.log('1111',response)
-								var users=[];
-								
-									for (var i = 0; i < response.length; i++) {
-										users[i] = response[i];
-									}									
-									$('#user-list').empty();
-									users.forEach((v) => {
-										$('#user-list').append('<p class="userp">' +'<img class="useravatar_small" src="'+ v.user_avatar+'">'+ v.user_name +'</p>');
-									}) 			 
+								var users=[];								
+								for (var i = 0; i < response.length; i++) {
+									users[i] = response[i];
+								}									
+								$('#user-list').empty();
+								users.forEach((v) => {
+									$('#user-list').append('<p class="userp">' +'<img class="useravatar_small" src="'+ v.user_avatar+'">'+ v.user_name +'</p>');
+								}) 			 
 								},
 								error: function( jqXhr, textStatus, errorThrown ){
 									console.log(  jqXhr )
