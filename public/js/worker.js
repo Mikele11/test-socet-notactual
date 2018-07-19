@@ -309,7 +309,7 @@ socket.on('oldcolors', function (usersOnline){
 		console.log('off online>',usersOnline)
 		$('#user-list>p').each(function( index ) {
 		  console.log( 'each oldcolors' );	
-		  if ($( this ).text() == usersOnline[index]){
+		  if ($( this ).text() !== usersOnline[index]){
 			$( this ).css("background","#d3d3eb");  
 		  } 
 		});
