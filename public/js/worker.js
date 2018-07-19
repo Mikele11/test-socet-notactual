@@ -290,7 +290,7 @@ socket.on('change', function (usersOnline){
 				console.log('in each change');
 				console.log('in each change this',$( this ).text());
 				console.log('in each change index',usersOnline[index]);
-			  if ($( this ).text() == usersOnline[index]){
+			  if (usersOnline.indexOf($( this ).text() ) != -1){
 				  console.log('in each change thr same');
 				  console.log('write color',usersOnline[index]);
 				$( this ).css("background","greenyellow"); 
@@ -300,7 +300,7 @@ socket.on('change', function (usersOnline){
 			console.log('off')
 			$('#user-list>p').each(function( index ) {
 			  console.log( 'each' );	
-			  if ($( this ).text() == usersOnline[index]){
+			  if (usersOnline.indexOf($( this ).text() ) != -1){
 				$( this ).css("background","#d3d3eb");  
 			  } 
 			});
@@ -313,7 +313,7 @@ socket.on('oldcolors', function (usersOnline){
 		console.log('off online>',usersOnline)
 		$('#user-list>p').each(function( index ) {
 		  console.log( 'each oldcolors' );	
-		  if ($( this ).text() !== usersOnline[index]){
+		  if (usersOnline.indexOf($( this ).text() ) == -1){
 			$( this ).css("background","#d3d3eb");  
 		  } 
 		});
