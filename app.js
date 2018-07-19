@@ -11,6 +11,7 @@ var rooms = [];
 var messages = {};
 var messages1 = {};
 var users=[];
+var usersOnline=[];
 var user_current;
 var mongojs = require('mongojs');
 const MongoClient = require('mongodb').MongoClient;
@@ -121,7 +122,7 @@ MongoClient.connect(MONGO_URL, function(err, db){
 
 		});
 		//----------------------------------отрисовка юзера
-
+/*
 		socket.on('remember user', (user) => {
 			console.log('user_current');
 			console.log(user);
@@ -142,6 +143,46 @@ MongoClient.connect(MONGO_URL, function(err, db){
 		socket.on('disconnect', function (user_current) {
 			oldColors();
 		});
+*/
+		Array.prototype.remove = function(value) {
+			var idx = this.indexOf(value);
+			if (idx != -1) {
+				// Второй параметр - число элементов, которые необходимо удалить
+				return this.splice(idx, 1);
+			}
+			return false;
+		}
+		
+		socket.on('remember user', (user) => {
+			console.log('user_current');
+			console.log(user);
+			console.log('user_current');
+			
+			
+			socket.user = user;
+			usersOnline.push(user);
+			usersOnline = unique(usersOnline);
+			changeColors();
+		});
+	
+		function changeColors() {
+			io.sockets.emit('change',usersOnline);
+		}
+		function oldColors() {
+			io.sockets.emit('oldcolors',usersOnline);
+		}		
+		socket.on('disconnect', function (user_current) {
+			oldColors();
+			usersOnline.remove[user_current];
+		});	
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 		//-------------------------кінець отрисовки
 		
 		
