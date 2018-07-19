@@ -172,8 +172,8 @@ MongoClient.connect(MONGO_URL, function(err, db){
 			io.sockets.emit('oldcolors',usersOnline);
 		}		
 		socket.on('disconnect', function (user_current) {
-			oldColors();
 			usersOnline.remove[user_current];
+			oldColors();
 		});	
 	   
 	   
