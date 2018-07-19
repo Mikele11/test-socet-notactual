@@ -230,7 +230,7 @@ socket.on('chat message init', (messages) => {
 });
 
 //----------------------------------------отрисовка
-		
+/*		
 	socket.on('connect', function (){
 		setTimeout(function(){
 		console.log('sender',document.getElementById('response').innerText)
@@ -277,6 +277,55 @@ socket.on('chat message init', (messages) => {
 			});
 		},5000);
     });
+*/
+socket.on('connect', function (){
+	setTimeout(function(){
+		console.log('sender',document.getElementById('response').innerText)
+		socket.emit('remember user', $('#response').text());
+	},5000);
+});
+
+socket.on('change', function (usersOnline){
+	setTimeout(function(){
+		console.log('on online>',usersOnline)
+		if (navigator.onLine == true){
+			console.log('on')
+			var x = document.getElementsByClassName("userp").length;
+			console.log( 'class',x);
+			$('#user-list>p').each(function( index ) {	
+			  if ($( this ).text() == usersOnline[index]){
+				$( this ).css("background","greenyellow"); 
+			  } 
+			});			
+		} else {
+			console.log('off')
+			$('#user-list>p').each(function( index ) {
+			  console.log( 'each' );	
+			  if ($( this ).text() == usersOnline[index]){
+				$( this ).css("background","#d3d3eb");  
+			  } 
+			});
+		}
+	},5000);
+});
+
+socket.on('oldcolors', function (usersOnline){
+	setTimeout(function(){
+		console.log('off online>',usersOnline)
+		$('#user-list>p').each(function( index ) {
+		  console.log( 'each oldcolors' );	
+		  if ($( this ).text() == usersOnline[index]){
+			$( this ).css("background","#d3d3eb");  
+		  } 
+		});
+	},5000);
+});
+
+
+
+
+
+
 
 
 //-----------------------------------------------
