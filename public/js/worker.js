@@ -312,7 +312,7 @@ socket.on('oldcolors', function (usersOnline){
 	setTimeout(function(){
 		console.log('off online>',usersOnline)
 		$('#user-list>p').each(function( index ) {
-		  console.log( 'each oldcolors' );	
+		  console.log( 'each oldcolors',(usersOnline.indexOf($( this ).text() ) == -1) );	
 		  if (usersOnline.indexOf($( this ).text() ) == -1){
 			$( this ).css("background","#d3d3eb");  
 		  } 
