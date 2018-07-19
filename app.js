@@ -171,8 +171,9 @@ MongoClient.connect(MONGO_URL, function(err, db){
 		function oldColors() {
 			io.sockets.emit('oldcolors',usersOnline);
 		}		
-		socket.on('disconnect', function (user_current) {
-			usersOnline.remove[user_current];
+		socket.on('disconnect', function () {
+			//usersOnline.remove[user_current];
+			usersOnline.splice(usersOnline.indexOf(socket.user), 1);
 			oldColors();
 		});	
 	   
